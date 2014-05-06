@@ -47,6 +47,8 @@ h2 {
     text-align: center;
     border: 5px solid white;
     outline: 0;
+    font-size: x-large;
+    font-family: 'Poiret One';
 }
 
 #hotcold {
