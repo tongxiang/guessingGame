@@ -14,20 +14,43 @@
 var randomNumber = Math.floor(Math.random() * 100 + 1)
 console.log(randomNumber);
 
-//EVENT HANDLERS & LISTENERS 
+//EVENT HANDLERS & LISTENERS
 $(document).ready(function(){
     console.log('document is ready');
-    $('#checkit').click(compute); //.click is confusing, should actually have been .onclick 
-    $('#reset').click(numReset);
-    $('#guessbox').keyPress(function(event){
-        var keycode = (event.which ? evt.which: event.keyCode) //how you detect the enter button being pressed event, if it's an older browser it may ony be able to detect it with event.keyCode
+    $('#checkit').click(compute); //.click is confusing, should actually have been .onclick
+    // $('#reset').click(numReset);
+    $('#guessbox').keypress(function(event){
+        var keycode = (event.which ? event.which: event.keyCode) //how you detect the enter button being pressed event, if it's an older browser it may ony be able to detect it with event.keyCode
         if(keycode == '13'){
             compute();
         }
     })
 });
 
-var hotColdCheck = function(){
+var compute = function(){
+    guessedValue = $('#guessbox').val()
+    differenceInValues = Math.abs(guessedValue - randomNumber)
+    if (guessedValue > randomNumber){
+      $('#answer').text('Try guessing lower!');
+    } else if (guessedValue < randomNumber){
+      $('#answer').text('Try guessing higher!');
+    } else {
+      $('#answer').text('Congratulations, you got it!')
+      $('body').css("background-color", "red !important")
+    }
+
+    if (differenceInValues > 50){
+      $('#hotcold').text("You're freezing! Off by more than fifty.")
+    } else if (differenceInValues > 10) {
+      $('#hotcold').text("You're cold! Off by more than ten.")
+    } else if (differenceInValues >= 5){
+      $('#hotcold').text("Warmer! Off by more than five.")
+    } else if (differenceInValues > 0){
+      $('#hotcold').text("So hot! off by less than five.")
+    } else {
+      $('#hotcold').text("Burnt to a crisp.")
+    }
+
+    console.log(guessedValue)
 
 }
-
